@@ -1,6 +1,8 @@
 const userInfo = require('../models/user');
+const taskinfo= require('../models/task');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+ 
 
 exports.signIn = async(req,res)=>{
 
@@ -85,6 +87,8 @@ exports.logIn = async(req,res)=>{
             id:existingUser._id,
             token:token
         });
+        // existingUser.email= undefined;
+        // existingUser.password= undefined
 
     }
     else {
@@ -95,7 +99,239 @@ exports.logIn = async(req,res)=>{
         })
 
     }
-
-
-
+ 
 }
+
+exports.getAllTasks= async(req,res)=>{
+
+    try{
+         
+        const{id}= req.headers;
+        const {email, password}= req.body;
+
+        // const existingUser = await userInfo.findOne({email});
+        const userData = await userInfo.findById(id).populate({path:'tasks', options:{sort:{createdAt:-1}}} );
+        userData.email= undefined;
+        userData.password = undefined;
+        
+
+        res.status(200).json({
+            alltasks:userData
+        })
+
+
+    }
+    catch(err){
+        return res.status(400).json({
+            success:false,
+            message:'Username or password is incorrect'
+        })
+
+
+    }
+}
+
+
+exports.deleteTasks= async(req,res)=>{
+
+    try{
+         
+        const id= req.params.id;
+        const userId = req.headers.id;
+
+         const deleteTask=  await taskinfo.findByIdAndDelete(id);
+
+        await userInfo.findByIdAndUpdate(userId, {$pull:{tasks:deleteTask._id}} , {new:true});
+
+
+  
+        res.status(200).json({
+            message:"Task Deleted"
+        })
+
+
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json({
+            success:false,
+            message:'Server Error in Deletion'
+        })
+    }
+}
+
+
+exports.updateTasks= async(req,res)=>{
+
+    try{
+         
+        const id= req.params.id;
+        const {title,desc}= req.body;
+       
+         const updateTask=  await taskinfo.findByIdAndUpdate(id , {title,desc});
+          
+        res.status(200).json({
+
+            message:"Task Updated",
+            updatedTask:updateTask
+            
+        })
+
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json({
+            success:false,
+            message:'Server Error in Updation'
+        })
+    }
+}
+
+
+//importatnt task
+
+exports.importantTasks= async(req,res)=>{
+
+    try{
+         
+        const id= req.params.id;
+        const taskData = await taskinfo.findById(id);
+        const impTask = taskData.important;
+
+        
+       
+          await taskinfo.findByIdAndUpdate(id , {important: !impTask});
+          
+        res.status(200).json({
+
+            message:" Imp Task Updated",         
+        })
+
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json({
+            success:false,
+            message:'Server Error in Updation of imp task'
+        })
+    }
+}
+
+//completed task
+
+exports.completeTasks= async(req,res)=>{
+
+    try{
+         
+        const id= req.params.id;
+        const taskData = await taskinfo.findById(id);
+        const compTask = taskData.complete;
+     
+         await taskinfo.findByIdAndUpdate(id , {complete: !compTask});
+          
+        res.status(200).json({
+
+            message:" comp Task Updated",         
+        })
+
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json({
+            success:false,
+            message:'Server Error in Updation of complete task'
+        })
+    }
+}
+
+//get imp tasks
+
+exports.getimpTasks= async(req,res)=>{
+
+    try{
+         
+        const{id}= req.headers; 
+        const data = await userInfo.findById(id).populate({path:'tasks', match:{important:true}, options:{sort:{createdAt:-1}}} );
+
+        const impTaskData = data.tasks;
+        
+
+        res.status(200).json({
+            success:true,
+            imptasks:impTaskData
+        })
+
+
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json({
+            success:false,
+            message:'Server error in getting imp task'
+        })
+
+
+    }
+}
+
+ 
+//get comp task
+
+exports.getCompTasks= async(req,res)=>{
+
+    try{
+         
+        const{id}= req.headers; 
+        const data = await userInfo.findById(id).populate({path:'tasks', match:{complete:true}, options:{sort:{createdAt:-1}}} );
+        
+        const compTaskData = data.tasks;
+
+       
+
+        res.status(200).json({
+            success:true,
+            comptasks:compTaskData
+        })
+
+
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json({
+            success:false,
+            message:'Server error in getting comp task'
+        })
+
+
+    }
+}
+
+
+//get incomplete tasks 
+
+exports.getinCompTasks= async(req,res)=>{
+
+    try{
+         
+        const{id}= req.headers; 
+        const data = await userInfo.findById(id).populate({path:'tasks', match:{complete:false}, options:{sort:{createdAt:-1}}} );
+        
+        const IncompTaskData = data.tasks;
+        res.status(200).json({
+            success:true,
+            Incomptasks:IncompTaskData
+        })
+
+
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).json({
+            success:false,
+            message:'Server error in getting comp task'
+        })
+
+
+    }
+}
+

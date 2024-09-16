@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     tasks:[
 
         {
-            type:mongoose.Types.ObjectId,
+            type:mongoose.Schema.Types.ObjectId,
             ref:'task'
         }
 

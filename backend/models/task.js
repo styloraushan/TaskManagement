@@ -2,27 +2,26 @@ const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
 
+ 
     title:{
         type:String,
-        required:true,
-        unique:true
+        required:true,  
     },
 
     desc:{
         type:String,
-        required:true,
-        unique:true
+        required:true, 
     },
 
     important:{
-        type:boolean,
+        type:Boolean,
         default:false
     }  ,
 
     complete:{
-        type:boolean,
+        type:Boolean,
         default:false
     }
 } , {timestamps:true}); //to know the time
 
-module.exports=mongoose.model('task' , userSchema);
+module.exports=mongoose.model('task' , taskSchema);
