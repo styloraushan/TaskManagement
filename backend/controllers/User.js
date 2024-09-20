@@ -111,7 +111,7 @@ exports.getAllTasks= async(req,res)=>{
 
         // const existingUser = await userInfo.findOne({email});
         const userData = await userInfo.findById(id).populate({path:'tasks', options:{sort:{createdAt:-1}}} );
-        userData.email= undefined;
+      
         userData.password = undefined;
         
 

@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
- 
+import React, { useEffect, useState } from 'react'
+
 import { CgNotes } from "react-icons/cg";
 import { MdLabelImportantOutline } from "react-icons/md";
 import { FaCheckDouble } from "react-icons/fa6";
 import { TbNotebookOff } from "react-icons/tb";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/auth';
+import axios from 'axios';
 
 const Sidebar = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [Data , setData]= useState();
 
   const [menu , setMenu] = useState("All tasks");
 
@@ -37,14 +44,47 @@ const Sidebar = () => {
     }
   ];
 
+  const logoutHandler=()=>{
+
+    dispatch(authActions.logout());
+    localStorage.clear("id");
+    localStorage.clear("token");
+    navigate('/login');
+    
+  }
+
+  const headers = {
+    id: localStorage.getItem("id"),
+    authrization: localStorage.getItem("token")
+  }
+
+ useEffect(()=>{
+
+  const fetch = async()=>{
+    const response = await axios.get("http://localhost:1000/api/v1/gettasks" ,{headers} );
+    // console.log(response);
+      setData(response.data.alltasks);
+  }
+
+  if(localStorage.getItem("id") && localStorage.getItem("token")){  // check this otherwise it render an error for some secona
+    fetch();
+  }
+ 
+
+ } , [])
+
   return (
  
     <> 
-        <div>
-            <h2 className='text-xl font-semibold'>The code master</h2>
-            <h4 className='mb-1 text-gray-400'>ayy@gmail.com</h4>
+
+      {Data && (
+         <div>
+            <h2 className='text-xl font-semibold'>{Data.username}</h2>
+            <h4 className='mb-1 text-gray-400'>{Data.email}</h4>
             <hr />
         </div>
+      )}
+       
 
         <div>
           {data.map((items,i)=>(
@@ -57,7 +97,7 @@ const Sidebar = () => {
         </div>
 
         <div>
-          <button className='bg-gray-600 p-2 rounded w-full'>Log Out</button>
+          <button className='bg-gray-600 p-2 rounded w-full' onClick={logoutHandler}>Log Out</button>
         </div>
 
         </>
