@@ -30,7 +30,7 @@ const Signup = () => {
     }
     else {
 
-     const response =  await axios.post("http://localhost:1000/api/v1/signup" , data);
+     const response =  await axios.post("https://task-management-application-bckend.onrender.com/api/v1/signup" , data);
     //  console.log(response);
 
     }
