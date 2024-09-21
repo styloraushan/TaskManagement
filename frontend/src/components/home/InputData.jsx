@@ -29,7 +29,7 @@ const InputData = ({showInputDiv,setShowInputDiv ,updatedData, setUpdatedData}) 
     }
     else {
 
-     const response = await axios.post("http://localhost:1000/api/v1/taskcreate" , Data , {headers});
+     const response = await axios.post("https://task-management-application-bckend.onrender.com/api/v1/taskcreate" , Data , {headers});
     
     }
     setdata({title:"" , desc:""});
@@ -49,7 +49,7 @@ const InputData = ({showInputDiv,setShowInputDiv ,updatedData, setUpdatedData}) 
     }
     else {
 
-     const response = await axios.put(`http://localhost:1000/api/v1/updatetask/${updatedData.id}` , Data , {headers});
+     const response = await axios.put(`https://task-management-application-bckend.onrender.com/api/v1/updatetask/${updatedData.id}` , Data , {headers});
     
     }
    
