@@ -14,7 +14,7 @@ const Imptasks = () => {
 
  useEffect(()=>{
   const fetch = async()=>{
-  const response = await axios.get("http://localhost:1000/api/v1/getimptasks" , {headers} ); 
+  const response = await axios.get("https://task-management-application-bckend.onrender.com/api/v1/getimptasks" , {headers} ); 
      setData(response.data.imptasks);
   }
   fetch();
