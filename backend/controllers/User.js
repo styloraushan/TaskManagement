@@ -1,6 +1,6 @@
 const userInfo = require('../models/user');
 const taskinfo= require('../models/task');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
  
 
