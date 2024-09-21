@@ -23,7 +23,7 @@ const Alltasks = () => {
  useEffect(()=>{
 
   const fetch = async()=>{
-    const response = await axios.get("http://localhost:1000/api/v1/gettasks" ,{headers} );
+    const response = await axios.get("https://task-management-application-bckend.onrender.com/api/v1/gettasks" ,{headers} );
     
       setData(response.data.alltasks);
   }
