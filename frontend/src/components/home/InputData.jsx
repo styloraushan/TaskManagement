@@ -29,7 +29,7 @@ const InputData = ({showInputDiv,setShowInputDiv ,updatedData, setUpdatedData}) 
     }
     else {
 
-     const response = await axios.post("http://localhost:1000/api/v1/taskcreate" , Data , {headers});
+     const response = await axios.post("https://task-management-application-nu.vercel.app/api/v1/taskcreate" , Data , {headers});
     
     }
     setdata({title:"" , desc:""});

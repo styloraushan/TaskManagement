@@ -20,7 +20,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
 
    async function completeHandler(id){
    try{
-    const response = await axios.put(`http://localhost:1000/api/v1/updatecomptasks/${id}` ,{} , {headers} );
+    const response = await axios.put(`https://task-management-application-nu.vercel.app/api/v1/updatecomptasks/${id}` ,{} , {headers} );
     // alert(response.data.message);
    }
    catch(err){
@@ -32,7 +32,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
   async function importantTaskHandler(id){
     try{
  
-     const response = await axios.put(`http://localhost:1000/api/v1/updateimptasks/${id}` ,{} , {headers} );
+     const response = await axios.put(`https://task-management-application-nu.vercel.app/api/v1/updateimptasks/${id}` ,{} , {headers} );
     //  console.log(response);
     }
     catch(err){
@@ -44,7 +44,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
    async function deleteHandler(id){
     try{
  
-     const response = await axios.delete(`http://localhost:1000/api/v1/deletetask/${id}` , {headers} );
+     const response = await axios.delete(`https://task-management-application-nu.vercel.app/api/v1/deletetask/${id}` , {headers} );
     //  console.log(response);
     }
     catch(err){

@@ -61,7 +61,7 @@ const Sidebar = () => {
  useEffect(()=>{
 
   const fetch = async()=>{
-    const response = await axios.get("http://localhost:1000/api/v1/gettasks" ,{headers} );
+    const response = await axios.get("https://task-management-application-nu.vercel.app/api/v1/gettasks" ,{headers} );
     // console.log(response);
       setData(response.data.alltasks);
   }
