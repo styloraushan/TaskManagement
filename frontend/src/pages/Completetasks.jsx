@@ -14,7 +14,7 @@ const Completetasks = ({CompleteTask,setCompleteTask}) => {
 
  useEffect(()=>{
   const fetch = async()=>{
-  const response = await axios.get("https://task-management-application-nu.vercel.app/api/v1/getcomptask" , {headers} ); 
+  const response = await axios.get("http://localhost:1000/api/v1/getcomptask" , {headers} ); 
      setData(response.data.comptasks);
   }
   fetch();

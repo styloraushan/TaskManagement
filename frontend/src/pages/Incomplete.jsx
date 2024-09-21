@@ -14,7 +14,7 @@ const Incomplete = () => {
 
  useEffect(()=>{
   const fetch = async()=>{
-  const response = await axios.get("https://task-management-application-nu.vercel.app/api/v1/getincompletetask" , {headers} ); 
+  const response = await axios.get("http://localhost:1000/getincompletetask" , {headers} ); 
      setData(response.data.Incomptasks);
   }
   fetch();
