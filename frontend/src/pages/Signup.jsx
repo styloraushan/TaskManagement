@@ -32,6 +32,8 @@ const Signup = () => {
 
      const response =  await axios.post(`https://task-management-application-bkend.onrender.com/api/v1/signup` , data);
     //  console.log(response);
+    alert("Account successfully created ! Please Login ");
+    navigate('/login');
 
     }
   }

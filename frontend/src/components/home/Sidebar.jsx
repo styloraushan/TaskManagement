@@ -88,9 +88,9 @@ const Sidebar = () => {
     <>
 
       {Data && (
-         <div>
+         <div className='overflow-hidden md:pl-8'>
             <h2 className='text-xl font-semibold'>{Data.username}</h2>
-            <h4 className='mb-1 text-gray-400'>{Data.email}</h4>
+            <h4 className='mb-2 text-gray-400'>{Data.email}</h4>
             <hr />
         </div>
       )}
@@ -107,10 +107,10 @@ const Sidebar = () => {
 
      )}
        
-       <div className={` h-20 md:h-2/6 flex   flex-col items-center   gap-10   relative   `}>
+       <div className={` h-5 md:h-2/6 flex   flex-col items-center   gap-10   relative   `}>
 
         
-         <div className={`md:hidden block mt-4 `} >
+         <div className={`md:hidden block `} >
          {sideMenu? <RxCross2 onClick={menuHandler} className='text-xl'/>:<IoFilterSharp  onClick={menuHandler} className='text-xl'/> }
          </div>
 
@@ -133,7 +133,7 @@ const Sidebar = () => {
           
 
         <div>
-          <button className={`bg-gray-600 p-2 rounded w-full  md:text-lg text-xs `} onClick={logoutHandler}>Log Out</button>
+          <button className={`bg-gray-600 p-3 rounded w-full  md:text-lg text-xs  `} onClick={logoutHandler}>Log Out</button>
         </div>
 
         </>

@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    box-sizing: border-box; 
+    margin: 0;
+   padding: 0;
+    overflow-x: hidden;
+}
+
 @keyframes side-left {
     0%{
         transform: translateX(0);
