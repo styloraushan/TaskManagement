@@ -9,6 +9,8 @@ import axios from 'axios';
 const Alltasks = () => {
   const[showInputDiv , setShowInputDiv] = useState(false);
   const [Data , setData]= useState();
+   
+
   const[updatedData, setUpdatedData] = useState({
     id:"",
     title:"",
@@ -23,7 +25,7 @@ const Alltasks = () => {
  useEffect(()=>{
 
   const fetch = async()=>{
-    const response = await axios.get("https://task-management-application-bckend.onrender.com/api/v1/gettasks" ,{headers} );
+    const response = await axios.get(`https://task-management-application-bkend.onrender.com/api/v1/gettasks` ,{headers} );
     
       setData(response.data.alltasks);
   }
@@ -36,15 +38,8 @@ const Alltasks = () => {
  });
 
 
- 
 
  
-
- 
-
- 
-
-
   return (
 
     <>
@@ -72,6 +67,8 @@ const Alltasks = () => {
     {
       showInputDiv ?  <InputData setShowInputDiv={setShowInputDiv} updatedData={updatedData} setUpdatedData={setUpdatedData}/>:<></>
     }
+
+    
 
    
     

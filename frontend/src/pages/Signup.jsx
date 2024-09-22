@@ -30,7 +30,7 @@ const Signup = () => {
     }
     else {
 
-     const response =  await axios.post("https://task-management-application-bckend.onrender.com/api/v1/signup" , data);
+     const response =  await axios.post(`https://task-management-application-bkend.onrender.com/api/v1/signup` , data);
     //  console.log(response);
 
     }
@@ -54,7 +54,7 @@ const Signup = () => {
   return (
     <div className='flex items-center justify-center h-[98vh]'>
 
-        <div className='bg-gray-800 w-2/6 rounded p-4'>
+        <div className='bg-gray-800 md:w-2/6  max-w-[500px] sm:4/6 rounded p-4'>
           
           <div className='text-2xl font-semibold'>Signup</div>
 

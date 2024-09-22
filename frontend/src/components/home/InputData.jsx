@@ -29,7 +29,7 @@ const InputData = ({showInputDiv,setShowInputDiv ,updatedData, setUpdatedData}) 
     }
     else {
 
-     const response = await axios.post("https://task-management-application-bckend.onrender.com/api/v1/taskcreate" , Data , {headers});
+     const response = await axios.post(`https://task-management-application-bkend.onrender.com/api/v1/taskcreate` , Data , {headers});
     
     }
     setdata({title:"" , desc:""});
@@ -49,7 +49,7 @@ const InputData = ({showInputDiv,setShowInputDiv ,updatedData, setUpdatedData}) 
     }
     else {
 
-     const response = await axios.put(`https://task-management-application-bckend.onrender.com/api/v1/updatetask/${updatedData.id}` , Data , {headers});
+     const response = await axios.put(`https://task-management-application-bkend.onrender.com/api/v1/updatetask/${updatedData.id}` , Data , {headers});
     
     }
    
@@ -74,7 +74,7 @@ const InputData = ({showInputDiv,setShowInputDiv ,updatedData, setUpdatedData}) 
 
     <div className={` fixed top-0 left-0 flex items-center justify-center h-screen w-full`}>
 
-        <div className='w-2/6 bg-gray-900  p-4 rounded'> 
+        <div className='sm:4/6 md:3/6 lg:w-2/6  bg-gray-900  p-4 rounded'> 
 
         <div className='flex justify-end'> 
            <button className='text-2xl' onClick={()=>{

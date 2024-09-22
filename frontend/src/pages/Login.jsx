@@ -33,7 +33,7 @@ const Login = () => {
     }
     else {
 
-     const response =  await axios.post("https://task-management-application-bckend.onrender.com/api/v1/login" , Data);
+     const response =  await axios.post(`https://task-management-application-bkend.onrender.com/api/v1/login` , Data);
    
     
      setData({username:"" , password:""});
@@ -64,7 +64,7 @@ const Login = () => {
   return (
     <div className='flex items-center justify-center h-[98vh]'>
 
-        <div className='bg-gray-800 w-2/6 rounded p-4'>
+        <div className='bg-gray-800 lg:w-2/6 md:3/6 sm:4/6 rounded p-4 '>
           
           <div className='text-2xl font-semibold'>LogIn</div>
 
@@ -73,7 +73,7 @@ const Login = () => {
 
          
 
-           <div className='w-full flex items-center gap-12'>
+           <div className='w-full flex  items-center gap-12'>
 
              <button className='bg-blue-400 text-xl font-semibold text-black px-3 py-2 rounded' onClick={submitHandler}>Login</button>
              <Link to='/signup' className='text-gray-400 hover:text-gray-200'>Not having an account? Signup here !</Link>

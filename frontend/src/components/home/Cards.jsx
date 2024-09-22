@@ -20,7 +20,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
 
    async function completeHandler(id){
    try{
-    const response = await axios.put(`https://task-management-application-bckend.onrender.com/api/v1/updatecomptasks/${id}` ,{} , {headers} );
+    const response = await axios.put(`https://task-management-application-bkend.onrender.com/api/v1/updatecomptasks/${id}` ,{} , {headers} );
     // alert(response.data.message);
    }
    catch(err){
@@ -32,7 +32,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
   async function importantTaskHandler(id){
     try{
  
-     const response = await axios.put(`https://task-management-application-bckend.onrender.com/api/v1/updateimptasks/${id}` ,{} , {headers} );
+     const response = await axios.put(`https://task-management-application-bkend.onrender.com/api/v1/updateimptasks/${id}` ,{} , {headers} );
     //  console.log(response);
     }
     catch(err){
@@ -44,7 +44,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
    async function deleteHandler(id){
     try{
  
-     const response = await axios.delete(`https://task-management-application-bckend.onrender.com/api/v1/deletetask/${id}` , {headers} );
+     const response = await axios.delete(`https://task-management-application-bkend.onrender.com/api/v1/deletetask/${id}` , {headers} );
     //  console.log(response);
     }
     catch(err){
@@ -62,7 +62,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
 
    
   return (
-    <div className='grid grid-cols-3 p-4 gap-4'>
+    <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2  p-4 gap-4'>
         
         
         { data && data.map((items,i)=>(
@@ -83,9 +83,12 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
                 <div className='  w-3/6 p-2 text-2xl flex justify-around '>
                     <button onClick={()=>importantTaskHandler(items._id)}>
                        {items.important==false?<CiHeart />:<FaHeart className='text-red-500'/>}</button>
-                       {addTask===true && 
-                        <button onClick={()=>handleUpdate(items._id , items.title, items.desc)}><FaEdit /></button>
-                       }
+
+                       {addTask==="true" && (
+                         <button onClick={()=>handleUpdate(items._id , items.title, items.desc)}><FaEdit /></button>
+                       )}
+                       
+                        
                     
                     <button onClick={()=>deleteHandler(items._id)}><MdDelete /></button>
                 </div>

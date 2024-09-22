@@ -8,12 +8,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
 import axios from 'axios';
+import { IoFilterSharp } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
 
 const Sidebar = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Data , setData]= useState();
+  const [sideMenu , setSideMenu]= useState(false);
+  const[hideBackground, setHidebackground] = useState(false);
 
   const [menu , setMenu] = useState("All tasks");
 
@@ -61,7 +65,7 @@ const Sidebar = () => {
  useEffect(()=>{
 
   const fetch = async()=>{
-    const response = await axios.get("https://task-management-application-bckend.onrender.com/api/v1/gettasks" ,{headers} );
+    const response = await axios.get(`https://task-management-application-bkend.onrender.com/api/v1/gettasks`,{headers} );
     // console.log(response);
       setData(response.data.alltasks);
   }
@@ -73,9 +77,15 @@ const Sidebar = () => {
 
  } , [])
 
+ function menuHandler(){
+  setSideMenu(!sideMenu)
+  setHidebackground(!hideBackground);
+  
+ }
+
   return (
  
-    <> 
+    <>
 
       {Data && (
          <div>
@@ -85,19 +95,45 @@ const Sidebar = () => {
         </div>
       )}
        
+        
 
-        <div>
+
+
+         
+     {hideBackground &&(
+
+      <div className={` fixed top-0 left-0 bg-gray-800 opacity-80 h-screen w-full side-left transition-all duration-1000 md:hidden`}>     
+      </div>
+
+     )}
+       
+       <div className={` h-20 md:h-2/6 flex   flex-col items-center   gap-10   relative   `}>
+
+        
+         <div className={`md:hidden block mt-4 `} >
+         {sideMenu? <RxCross2 onClick={menuHandler} className='text-xl'/>:<IoFilterSharp  onClick={menuHandler} className='text-xl'/> }
+         </div>
+
+        <div className={` ${sideMenu ? 'block' : 'hidden'} md:block `}>
           {data.map((items,i)=>(
-            <Link to={items.link} 
-            className='my-2 flex items-center gap-2 hover:bg-gray-600 p-2 rounded transition-all duration-300 '>  
+            <Link to={items.link} onClick={menuHandler}
+            className='my-2 flex items-center gap-2 hover:bg-gray-600 p-2 rounded transition-all duration-300  '>  
               
               {items.icon}
-              {items.title}</Link>
+              {items.title} </Link>
           ))}
         </div>
+         
+        
+        
+
+       </div>
+        
+         
+          
 
         <div>
-          <button className='bg-gray-600 p-2 rounded w-full' onClick={logoutHandler}>Log Out</button>
+          <button className={`bg-gray-600 p-2 rounded w-full  md:text-lg text-xs `} onClick={logoutHandler}>Log Out</button>
         </div>
 
         </>
