@@ -64,10 +64,11 @@ const Login = () => {
   }
    catch(err){
 
-    alert(err.response.data.message);
+    setLoading(false);
+    toast.error(err.response.data.message);
     navigate('/login');
     setData({username:"" , email:"" , password:""});
-    setLoading(false);
+    
 
 
     }
