@@ -4,9 +4,10 @@
 <p>Intoducing a simple task management application which is designed to help you stay organized, manage your work effectively, and achieve your goals with ease. 
   In this application one can add , delete and update the task and add the important task in important list. 
   <br/>
-Talking about tech stacks it includes -:
- Front-end : Reactjs and tailwind css
- Back-end : MongoDB and express js
+  <br/>
+Talking about tech stacks it includes -:<br/>
+ Front-end : Reactjs and tailwind css<br/>
+ Back-end : MongoDB and express js <br/>
  Deployment : netlify and render   
 </p>
 
