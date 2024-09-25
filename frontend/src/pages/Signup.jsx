@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import logo from '../assets/logo.png';
+import toast from 'react-hot-toast'
 
 const Signup = () => {
 
@@ -26,17 +28,29 @@ const Signup = () => {
 
     try{
        if(data.username==="" || data.email==="" || data.password===""){
-      alert("All field is required");
+      toast.error("All field is required");
+      // alert("All field are required");
     }
     else {
 
-     const response =  await axios.post(`https://task-management-application-bkend.onrender.com/api/v1/signup` , data);
-    //  console.log(response);
-    alert("Account successfully created ! Please Login ");
-    navigate('/login');
-
+      const emailRegex = /\S+@\S+\.\S+/;
+      if( ! emailRegex.test(data.email)){
+         toast.error("Please enter valid email");
+      }
+      else if(data.password.length<4){
+        toast.error("Password must have at least of 4 characters")
+      }
+      else{
+        const response =  await axios.post(`https://task-management-application-bkend.onrender.com/api/v1/signup` , data);
+       console.log(response);
+      toast.success("Account created ! Please Login ");
+      navigate('/login');
+      }
+      
+      }
+    
     }
-  }
+  
    catch(err){
 
     alert(err.response.data.message);
@@ -49,30 +63,36 @@ const Signup = () => {
     }
 
  
-
-   
-
-
   return (
-    <div className='flex items-center justify-center h-[98vh]'>
+    <div className='flex items-center  bg-gray-900 justify-center h-[98vh]'>
 
-        <div className='bg-gray-800 md:w-2/6  max-w-[500px] sm:4/6 rounded p-4'>
+        <div className='bg-gray-800 md:w-2/6 flex flex-col justify-start  max-w-[500px]  rounded p-4'>
+
+        <div className='flex items-center my-6'>
+          <img src={logo} alt=""  className='w-[40px] h-[30px]'/>
+          <h1 className='text-2xl font-semibold'>Task Management</h1>
+        </div>
           
-          <div className='text-2xl font-semibold'>Signup</div>
+          <div className='text-3xl  mb-3 font-bold overflow-hidden'>Signup in to your Account</div>
 
-          <input required type="text" placeholder='username' className='px-3 py-2 w-full my-3 bg-gray-700 rounded' name='username' onChange={changeHandler} value={data.username} />
-          <input required type="email" placeholder='email' className='px-3 py-2 w-full my-3 bg-gray-700 rounded' name='email' onChange={changeHandler} value={data.email}/>
-          <input required type="password"  placeholder='password' className='px-3 py-2 w-full my-3 bg-gray-700 rounded' name='password' onChange={changeHandler} value={data.password} />
 
-           <div className='w-full flex items-center gap-12'>
+          <input required type="text" placeholder='username' className='px-5 py-4 w-full my-3 bg-gray-700 rounded' name='username' onChange={changeHandler} value={data.username} />
+          <input required type="email" placeholder='email' className='px-5 py-4 w-full my-3 bg-gray-700 rounded' name='email' onChange={changeHandler} value={data.email}/>
+          <input required type="password"  placeholder='password' className='px-5 py-4 w-full my-3 bg-gray-700 rounded' name='password' onChange={changeHandler} value={data.password} />
 
-             <button className='bg-blue-400 text-xl font-semibold text-black px-3 py-2 rounded' onClick={submitHandler}>SignUp</button>
-             <Link to='/login' className='text-gray-400 hover:text-gray-200'>Already have an account? Login here !</Link>
+           
+             <button className='bg-blue-400 text-xl font-semibold text-black px-3 py-2 rounded my-3' onClick={submitHandler}>SignUp</button>
 
-           </div>
+             <Link to='/login' className='text-gray-400 text-center hover:text-gray-200'>Already have an account? Login here !</Link>
+
+           
 
         
         </div>
+
+         
+
+
     </div>
   )
 }

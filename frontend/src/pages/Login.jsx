@@ -4,6 +4,10 @@ import { useState } from 'react';
 import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import {authActions} from '../store/auth';
+import logo from '../assets/logo.png';
+import Spinner from '../components/Spinner';
+import toast from 'react-hot-toast'
+ 
 
 
 const Login = () => {
@@ -11,6 +15,7 @@ const Login = () => {
    
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const[loading, setLoading] = useState(false);
 
   const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
   if(isLoggedIn == true){
@@ -27,12 +32,19 @@ const Login = () => {
 
   async function submitHandler(event){
 
+    // event.preventDefault();
+    setLoading(true);
+
+         
     try{
        if(Data.username===""|| Data.password===""){
-      alert("All field is required");
+      toast.error("All field is required");
+      setLoading(false);
+
     }
     else {
-
+      
+     
      const response =  await axios.post(`https://task-management-application-bkend.onrender.com/api/v1/login` , Data);
    
     
@@ -42,8 +54,10 @@ const Login = () => {
       //  console.log(response);
 
      dispatch(authActions.login());
-    
+     setLoading(false);
       navigate('/');
+      toast.success("Logged In");
+      
      
 
     }
@@ -53,9 +67,11 @@ const Login = () => {
     alert(err.response.data.message);
     navigate('/login');
     setData({username:"" , email:"" , password:""});
+    setLoading(false);
 
 
     }
+    
 
     }
 
@@ -64,24 +80,38 @@ const Login = () => {
   return (
     <div className='flex items-center justify-center h-[98vh]'>
 
-        <div className='bg-gray-800 lg:w-2/6 md:3/6 sm:4/6 rounded p-4 '>
-          
-          <div className='text-2xl font-semibold'>LogIn</div>
+      {loading ? <Spinner/>
 
-          <input required type="text" placeholder='username' className='px-3 py-2 w-full my-3 bg-gray-700 rounded' name='username' onChange={changeHandler} value={Data.username}/>
-          <input required type="password"  placeholder='password' className='px-3 py-2 w-full my-3 bg-gray-700 rounded' name='password' onChange={changeHandler} value={Data.password} />
+      :
+
+     
+
+        <div className='bg-gray-800 lg:w-2/6 md:3/6 sm:4/6 flex flex-col justify-start rounded p-4 '>
+
+        <div className='flex items-center my-6'>
+          <img src={logo} alt=""  className='w-[40px] h-[30px]'/>
+          <h1 className='text-2xl font-semibold'>Task Management</h1>
+        </div>
+          
+          <div className='text-3xl  mb-3 font-bold overflow-hidden'>LogIn in to your Account</div>
+
+          <input required type="text" placeholder='username' className='px-5 py-4 w-full my-3 bg-gray-700 rounded' name='username' onChange={changeHandler} value={Data.username}/>
+          <input required type="password"  placeholder='password' className='px-5 py-4 w-full my-3 bg-gray-700 rounded' name='password' onChange={changeHandler} value={Data.password} />
 
          
 
-           <div className='w-full flex  items-center gap-12'>
+           
 
-             <button className='bg-blue-400 text-xl font-semibold text-black px-3 py-2 rounded' onClick={submitHandler}>Login</button>
-             <Link to='/signup' className='text-gray-400 hover:text-gray-200'>Not having an account? Signup here !</Link>
+             <button className='bg-blue-400 text-xl font-semibold text-black px-3 py-2 my-3 rounded w-full' onClick={submitHandler}>Login</button>
+             
 
-           </div>
+             <Link to='/signup' className='text-gray-400 text-center hover:text-gray-200 '>Not having an account? Signup here !</Link>
+
+            
 
         
         </div>
+}
     </div>
   )
 }

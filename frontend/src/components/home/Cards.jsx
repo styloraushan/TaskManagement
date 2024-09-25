@@ -5,6 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { MdAddCircle } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
+import toast from 'react-hot-toast'
  
  
 
@@ -34,6 +35,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
  
      const response = await axios.put(`https://task-management-application-bkend.onrender.com/api/v1/updateimptasks/${id}` ,{} , {headers} );
     //  console.log(response);
+    
     }
     catch(err){
      console.log(err);
@@ -46,6 +48,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
  
      const response = await axios.delete(`https://task-management-application-bkend.onrender.com/api/v1/deletetask/${id}` , {headers} );
     //  console.log(response);
+    toast.success("Task Deleted");
     }
     catch(err){
      console.log(err);
@@ -82,7 +85,7 @@ const Cards = ({addTask,setShowInputDiv , data , setUpdatedData}) => {
 
                 <div className='  w-3/6 p-2 text-2xl flex justify-around '>
                     <button onClick={()=>importantTaskHandler(items._id)}>
-                       {items.important==false?<CiHeart />:<FaHeart className='text-red-500'/>}</button>
+                       {items.important==false?<CiHeart onClick={()=>toast.success('Added to Important')}/>:<FaHeart className='text-red-500' onClick={()=>toast.success('Remove from Important')}/>}</button>
 
                        {addTask==="true" && (
                          <button onClick={()=>handleUpdate(items._id , items.title, items.desc)}><FaEdit /></button>

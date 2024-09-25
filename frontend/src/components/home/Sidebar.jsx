@@ -8,16 +8,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
 import axios from 'axios';
-import { IoFilterSharp } from "react-icons/io5";
-import { RxCross2 } from "react-icons/rx";
+import toast from 'react-hot-toast'
+ 
+ 
 
-const Sidebar = () => {
+const Sidebar = ({setmenu , setHidebackground}) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Data , setData]= useState();
-  const [sideMenu , setSideMenu]= useState(false);
-  const[hideBackground, setHidebackground] = useState(false);
+ 
 
   const [menu , setMenu] = useState("All tasks");
 
@@ -54,6 +54,7 @@ const Sidebar = () => {
     localStorage.clear("id");
     localStorage.clear("token");
     navigate('/login');
+    toast.success('Logged Out');
     
   }
 
@@ -77,20 +78,16 @@ const Sidebar = () => {
 
  } , [])
 
- function menuHandler(){
-  setSideMenu(!sideMenu)
-  setHidebackground(!hideBackground);
-  
- }
+ 
 
   return (
  
     <>
 
       {Data && (
-         <div className='overflow-hidden md:pl-8'>
+         <div className='h-[7rem]'>
             <h2 className='text-xl font-semibold'>{Data.username}</h2>
-            <h4 className='mb-2 text-gray-400'>{Data.email}</h4>
+            <h4 className='mb-1 text-gray-400'>{Data.email}</h4>
             <hr />
         </div>
       )}
@@ -100,32 +97,27 @@ const Sidebar = () => {
 
 
          
-     {hideBackground &&(
-
-      <div className={` fixed top-0 left-0 bg-gray-800 opacity-80 h-screen w-full side-left transition-all duration-1000 md:hidden`}>     
-      </div>
-
-     )}
+     
        
-       <div className={` h-5 md:h-2/6 flex   flex-col items-center   gap-10   relative   `}>
+       <div className={`  md:h-2/6 flex   flex-col  relative   h-full  `}>
 
-        
-         <div className={`md:hidden block `} >
-         {sideMenu? <RxCross2 onClick={menuHandler} className='text-xl'/>:<IoFilterSharp  onClick={menuHandler} className='text-xl'/> }
-         </div>
-
-        <div className={` ${sideMenu ? 'block' : 'hidden'} md:block `}>
-          {data.map((items,i)=>(
-            <Link to={items.link} onClick={menuHandler}
+         
+     {data.map((items,i)=>(
+            <Link to={items.link} onClick={()=>{
+              setHidebackground(false) 
+              setmenu(false)
+            }}
             className='my-2 flex items-center gap-2 hover:bg-gray-600 p-2 rounded transition-all duration-300  '>  
               
               {items.icon}
               {items.title} </Link>
           ))}
+
+        <div className='block md:hidden'>
+          <button className={`bg-gray-600 p-3 rounded w-full  md:text-lg text-xs mt-8 `} onClick={logoutHandler}>Log Out</button>
         </div>
-         
-        
-        
+
+     
 
        </div>
         
@@ -133,7 +125,7 @@ const Sidebar = () => {
           
 
         <div>
-          <button className={`bg-gray-600 p-3 rounded w-full  md:text-lg text-xs  `} onClick={logoutHandler}>Log Out</button>
+          <button className={`bg-gray-600 p-3 rounded w-full hidden md:block  md:text-lg text-xs `} onClick={logoutHandler}>Log Out</button>
         </div>
 
         </>
