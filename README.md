@@ -7,9 +7,10 @@
   <br/>
 Talking about tech stacks it includes -:
   <br/>
+  <br/>
  Front-end : Reactjs and tailwind css<br/>
  Back-end : MongoDB and express js <br/>
- Deployment : netlify and render 
+ Deployment : netlify and render <br/>
  Others : <b>axios</b>  for fetching data from backend server and  <b>jwt webtoken </b> for user authrization and authentication.
    
   <br/>
