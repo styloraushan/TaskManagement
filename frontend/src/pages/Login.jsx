@@ -94,7 +94,7 @@ const Login = () => {
           <h1 className='text-2xl font-semibold'>Task Management</h1>
         </div>
           
-          <div className='text-3xl  mb-3 font-bold overflow-hidden'>LogIn in to your Account</div>
+          <div className='text-3xl  mb-3 h-[50px] font-bold overflow-hidden'>LogIn in to your Account</div>
 
           <input required type="text" placeholder='username' className='px-5 py-4 w-full my-3 bg-gray-700 rounded' name='username' onChange={changeHandler} value={Data.username}/>
           <input required type="password"  placeholder='password' className='px-5 py-4 w-full my-3 bg-gray-700 rounded' name='password' onChange={changeHandler} value={Data.password} />

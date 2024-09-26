@@ -4,10 +4,13 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import logo from '../assets/logo.png';
 import toast from 'react-hot-toast'
+import Spinner from '../components/Spinner';
 
 const Signup = () => {
 
   const navigate = useNavigate();
+  const[loading, setLoading] = useState(false);
+
   const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
   if(isLoggedIn == true){
     navigate('/')
@@ -41,8 +44,10 @@ const Signup = () => {
         toast.error("Password must have at least of 4 characters")
       }
       else{
+         setLoading(true);
         const response =  await axios.post(`https://task-management-application-bkend.onrender.com/api/v1/signup` , data);
        console.log(response);
+      setLoading(false);
       toast.success("Account created ! Please Login ");
       navigate('/login');
       }
@@ -64,16 +69,19 @@ const Signup = () => {
 
  
   return (
+
     <div className='flex items-center  bg-gray-900 justify-center h-[98vh]'>
 
-        <div className='bg-gray-800 md:w-2/6 flex flex-col justify-start  max-w-[500px]  rounded p-4'>
+     {loading ? <Spinner/> : 
+
+      <div className='bg-gray-800 md:w-2/6 flex flex-col justify-start  max-w-[500px]  rounded p-4'>
 
         <div className='flex items-center my-6'>
           <img src={logo} alt=""  className='w-[40px] h-[30px]'/>
           <h1 className='text-2xl font-semibold'>Task Management</h1>
         </div>
           
-          <div className='text-3xl  mb-3 font-bold overflow-hidden'>Signup in to your Account</div>
+          <div className='text-3xl  mb-3 h-[50px] font-bold overflow-hidden'>Signup in to your Account</div>
 
 
           <input required type="text" placeholder='username' className='px-5 py-4 w-full my-3 bg-gray-700 rounded' name='username' onChange={changeHandler} value={data.username} />
@@ -89,6 +97,9 @@ const Signup = () => {
 
         
         </div>
+     }
+    
+       
 
          
 
