@@ -2,13 +2,18 @@
 
 <h2>Overview</h2>
 <p>Intoducing a simple task management application which is designed to help you stay organized, manage your work effectively, and achieve your goals with ease. 
-  In this application one can add , delete and update the task and add the important task in important list. 
+  In this application one can add , delete and update the task and add their task to the important section. 
   <br/>
   <br/>
-Talking about tech stacks it includes -:<br/>
+Talking about tech stacks it includes -:
+  <br/>
  Front-end : Reactjs and tailwind css<br/>
  Back-end : MongoDB and express js <br/>
- Deployment : netlify and render   
+ Deployment : netlify and render 
+ Others : <b>axios</b>  for fetching data from backend server and  <b>jwt webtoken </b> for user authrization and authentication.
+   
+  <br/>
+  
 </p>
 
   <br/>
@@ -24,7 +29,7 @@ Talking about tech stacks it includes -:<br/>
   <br/>
 
   <h2>
-    Checkout it here -> <a href = https://tasskmanagement.netlify.app/signup>Link</a>
+    Checkout it here -> <a href =  https://tasskmanagement.netlify.app/>Link</a>
   </h2>
   
   
