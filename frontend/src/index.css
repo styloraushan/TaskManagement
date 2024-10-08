@@ -1,4 +1,3 @@
- 
 
 @tailwind base;
 @tailwind components;
@@ -76,6 +75,10 @@
       transform: rotate(-360deg);
     }
   }
+  .bg-gray-900 {
+    /* --tw-bg-opacity: 1; */
+    background-color: white;
+}
       
 
  
